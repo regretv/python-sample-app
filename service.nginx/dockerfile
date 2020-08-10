@@ -1,0 +1,4 @@
+FROM nginx:1.19.1
+
+COPY provisioning/ /etc/nginx/
+COPY static/ /usr/share/nginx/html

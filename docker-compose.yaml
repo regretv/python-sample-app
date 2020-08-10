@@ -1,0 +1,27 @@
+# итак
+
+version: "3"
+
+services:
+  sqlmicroserv:
+    build: service.sql/
+    restart: always
+    env_file:
+      - ./service.sql/env_sql.env
+
+  wsgimicroserv:
+    build: service.wsgi/
+    restart: always
+    env_file:
+      - ./service.wsgi/env_wsgi.env
+    depends_on:
+      - sqlmicroserv
+    
+  nginxmicroserv:
+    build: service.nginx
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - wsgimicroserv  
+
